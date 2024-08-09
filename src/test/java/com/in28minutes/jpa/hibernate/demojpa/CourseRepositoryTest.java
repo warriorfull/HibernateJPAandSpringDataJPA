@@ -22,9 +22,10 @@ class CourseRepositoryTest {
 	CourseRepository repository;
 
 	@Test
+	@DirtiesContext
 	void findById_basic() {
 		Course course = repository.findById(10001L);
-		assertEquals("JPA in 50 Steps", course.getName());
+		assertEquals("JPA in 50 Steps - Updated", course.getName());
 
 		logger.info("test is running contextLoads()");
 	}

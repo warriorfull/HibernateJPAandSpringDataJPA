@@ -3,6 +3,7 @@ package com.in28minutes.jpa.hibernate.demojpa;
 import com.in28minutes.jpa.hibernate.demojpa.entity.Course;
 import com.in28minutes.jpa.hibernate.demojpa.repository.CourseRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -12,8 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest(classes= DemojpaApplication.class)
@@ -25,7 +25,7 @@ class JPQLTest {
 	EntityManager em;
 
 	@Test
-	void findById_basic() {
+	void jpql_basic() {
 		List<Course> resultList = em.createQuery("Select c from Course c").getResultList();
 
 		logger.info("Select c from Course c -> {}", resultList);
@@ -35,13 +35,36 @@ class JPQLTest {
 	}
 
 	@Test
-	public void findById_typed() {
+	public void jpql_query() {
+		Query query = em.createQuery("Select c from Course c", Course.class);
+		List<Course> resultList = query.getResultList();
+		logger.info("Query: Select c from Course c -> {}", resultList);
+        assertFalse(resultList.isEmpty());
+	}
+
+	@Test
+	public void jpql_namedQuery() {
+		Query query = em.createNamedQuery("query_get_all_courses");
+		List<Course> resultList = query.getResultList();
+		logger.info("namedQuery: Select c from Course c -> {}", resultList);
+        assertFalse(resultList.isEmpty());
+	}
+
+	@Test
+	public void jpql_100_step_namedQuery() {
+		Query query = em.createNamedQuery("query_get_100_step_courses");
+		List resultList = query.getResultList();
+		logger.info("namedQuery: Select c From Course c where name like '%100 Steps' -> {}", resultList);
+		assertFalse(resultList.isEmpty());
+	}
+	@Test
+	public void jpql_typed() {
 		TypedQuery<Course> query = em.createQuery("Select c from Course c", Course.class);
 		List<Course> resultList = query.getResultList();
 		logger.info("Select c from Course c -> {}", resultList);
 	}
 	@Test
-	public void findById_where() {
+	public void jpql_where() {
 		TypedQuery<Course> query = em.createQuery("Select c from Course c where c.name like '%100 Steps'", Course.class);
 		List<Course> resultList = query.getResultList();
 		logger.info("Select c from Course c where c.name like '%100 Steps' -> {}", resultList);

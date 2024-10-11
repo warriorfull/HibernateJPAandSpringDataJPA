@@ -12,6 +12,9 @@ public class Student {
     @Column(name="name", nullable = false)
     private String name;
 
+    @OneToOne
+    private Passport passport;
+
     public Long getId() {
         return id;
     }
@@ -28,6 +31,14 @@ public class Student {
         this.name = name;
     }
 
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
     protected Student() {
     }
 
@@ -40,6 +51,7 @@ public class Student {
         return "Student {" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", passport='" + passport + '\'' +
                 '}';
     }
 }

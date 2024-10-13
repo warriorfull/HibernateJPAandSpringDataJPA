@@ -12,7 +12,7 @@ public class Student {
     @Column(name="name", nullable = false)
     private String name;
 
-    @OneToOne
+    @OneToOne(fetch=FetchType.LAZY)
     private Passport passport;
 
     public Long getId() {

@@ -5,6 +5,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedQueries(value = {
@@ -19,6 +21,9 @@ public class Course {
 
     @Column(name="name", nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "course")
+    private List<Review> reviews = new ArrayList<>();
 
     // hibernate
     @UpdateTimestamp
@@ -43,6 +48,22 @@ public class Course {
         this.name = name;
     }
 
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
+
+    public void removeReview(Review review) {
+        this.reviews.remove(review);
+    }
+
+//    public void setReviews(List<Review> reviews) {
+//        this.reviews = reviews;
+//    }
+
     protected Course() {
     }
 
@@ -53,8 +74,9 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", reviews='"+reviews + '\'' +
                 '}';
     }
 }

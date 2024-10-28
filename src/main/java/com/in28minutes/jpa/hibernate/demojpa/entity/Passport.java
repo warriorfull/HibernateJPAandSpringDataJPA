@@ -12,6 +12,9 @@ public class Passport {
     @Column(name="number", nullable = false)
     private String number;
 
+    @OneToOne(fetch=FetchType.LAZY, mappedBy="passport")
+    private Student student;
+
     public Long getId() {
         return id;
     }
@@ -28,8 +31,17 @@ public class Passport {
         this.number = number;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     protected Passport() {
     }
+
 
     public Passport(String number) {
         this.number = number;

@@ -26,7 +26,9 @@ public class DemojpaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		studentRepository.saveStudentWithPassport();
+//		studentRepository.saveStudentWithPassport();
+
+		courseRepository.addReviewsForCourse();
 
 //		Course course = courseRepository.findById(10001L);
 //		logger.info(String.valueOf(course));
@@ -34,7 +36,7 @@ public class DemojpaApplication implements CommandLineRunner {
 //		courseRepository.save(new Course("Microservices in 100"));
 //		courseRepository.save(new Course("Angular in 51"));
 
-		courseRepository.playWithEntityManager();
-		courseRepository.save(new Course("Angular in 51"));
+//		courseRepository.playWithEntityManager();
+//		courseRepository.save(new Course("Angular in 51"));
 	}
 }

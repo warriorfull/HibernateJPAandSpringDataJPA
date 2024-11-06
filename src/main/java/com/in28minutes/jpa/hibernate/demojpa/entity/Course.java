@@ -25,6 +25,9 @@ public class Course {
     @OneToMany(mappedBy = "course" /*, fetch=FetchType.EAGER*/)
     private List<Review> reviews = new ArrayList<>();
 
+    @ManyToMany(mappedBy="courses")
+    private List<Student> students = new ArrayList<>();
+
     // hibernate
     @UpdateTimestamp
     private LocalDateTime lastUpdatedDate;
@@ -60,9 +63,17 @@ public class Course {
         this.reviews.remove(review);
     }
 
-//    public void setReviews(List<Review> reviews) {
-//        this.reviews = reviews;
-//    }
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void addStudent(Student student) {
+        this.students.add(student);
+    }
+
+    public void removeStudent(Student student) {
+        this.students.remove(student);
+    }
 
     protected Course() {
     }

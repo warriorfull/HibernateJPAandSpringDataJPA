@@ -22,7 +22,7 @@ public class Course {
     @Column(name="name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course" /*, fetch=FetchType.EAGER*/)
     private List<Review> reviews = new ArrayList<>();
 
     // hibernate
@@ -74,8 +74,8 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
 //                ", reviews='"+reviews + '\'' +
                 '}';
     }

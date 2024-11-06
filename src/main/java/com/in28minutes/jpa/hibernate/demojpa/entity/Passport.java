@@ -52,6 +52,7 @@ public class Passport {
         return "Passport {" +
                 "id=" + id +
                 ", number='" + number + '\'' +
+//                "student=" + student +
                 '}';
     }
 }

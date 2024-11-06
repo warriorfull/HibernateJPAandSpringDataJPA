@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public class CourseRepository {
@@ -65,7 +67,7 @@ public class CourseRepository {
         em.flush();
     }
 
-    public void addReviewsForCourse() {
+    public void addHardcodedReviewsForCourse() {
         // get the course 10003
         Course course = findById(10003L);
         logger.info("course.getReviews() -> {}",course.getReviews());
@@ -83,5 +85,17 @@ public class CourseRepository {
         // save it to the database
         em.persist(review1);
         em.persist(review2);
+    }
+
+    public void addReviewsForCourse(Long courseId, List<Review> reviews) {
+        // get the course 10003
+        Course course = findById(courseId);
+        logger.info("II course.getReviews() -> {}",course.getReviews());
+
+        for(Review review: reviews) {
+            course.addReview(review);
+            review.setCourse(course);
+            em.persist(review);
+        }
     }
 }

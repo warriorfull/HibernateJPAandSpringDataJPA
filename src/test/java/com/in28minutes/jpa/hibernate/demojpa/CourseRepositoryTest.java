@@ -1,13 +1,18 @@
 package com.in28minutes.jpa.hibernate.demojpa;
 
 import com.in28minutes.jpa.hibernate.demojpa.entity.Course;
+import com.in28minutes.jpa.hibernate.demojpa.entity.Review;
 import com.in28minutes.jpa.hibernate.demojpa.repository.CourseRepository;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -20,6 +25,9 @@ class CourseRepositoryTest {
 
 	@Autowired
 	CourseRepository repository;
+
+	@Autowired
+	EntityManager em;
 
 	@Test
 	@DirtiesContext
@@ -57,5 +65,20 @@ class CourseRepositoryTest {
 	@DirtiesContext
 	public void playWithEntityManager() {
 		repository.playWithEntityManager();
+	}
+
+	@Test
+	@Transactional
+	public void retrieveReviewForCourse() {
+		Course course = repository.findById(10001L);
+		List<Review> reviews = course.getReviews();
+		logger.info("course.getReviews(): {}", course.getReviews());
+	}
+
+	@Test
+	@Transactional
+	public void retrieveCourseForReview() {
+		Review review = em.find(Review.class, 50001L);
+		logger.info("review.getCourse: {}", review.getCourse());
 	}
 }

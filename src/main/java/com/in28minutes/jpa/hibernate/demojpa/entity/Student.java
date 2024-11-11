@@ -18,7 +18,7 @@ public class Student {
     @OneToOne(fetch=FetchType.LAZY)
     private Passport passport;
 
-    @ManyToMany
+    @ManyToMany //(fetch=FetchType.EAGER)
     @JoinTable(name="STUDENT_COURSE",
             joinColumns=@JoinColumn(name="STUDENT_ID"),
             inverseJoinColumns = @JoinColumn(name="COURSE_ID"))

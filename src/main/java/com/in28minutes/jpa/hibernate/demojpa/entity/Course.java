@@ -25,7 +25,7 @@ public class Course {
     @OneToMany(mappedBy = "course" /*, fetch=FetchType.EAGER*/)
     private List<Review> reviews = new ArrayList<>();
 
-    @ManyToMany(mappedBy="courses")
+    @ManyToMany(mappedBy="courses" /*, fetch=FetchType.EAGER*/)
     private List<Student> students = new ArrayList<>();
 
     // hibernate

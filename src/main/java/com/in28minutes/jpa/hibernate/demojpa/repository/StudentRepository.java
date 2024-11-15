@@ -1,5 +1,6 @@
 package com.in28minutes.jpa.hibernate.demojpa.repository;
 
+import com.in28minutes.jpa.hibernate.demojpa.entity.Course;
 import com.in28minutes.jpa.hibernate.demojpa.entity.Passport;
 import com.in28minutes.jpa.hibernate.demojpa.entity.Student;
 import jakarta.persistence.EntityManager;
@@ -60,5 +61,30 @@ public class StudentRepository {
         Student student = new Student("Mike");
         student.setPassport(passport);
         em.persist(student);
+    }
+
+    public void insertHardcodedStudentAndCourse() {
+        Student student = new Student("Jack");
+        Course course = new Course("Microservices in 100 Steps");
+        em.persist(student);
+        em.persist(course);
+
+        student.addCourse(course);
+        course.addStudent(student);
+
+        em.persist(student);
+    }
+
+    public void insertStudentAndCourse(Student student, Course course) {
+        student.addCourse(course);
+        course.addStudent(student);
+
+        Student student2 = new Student("Jake");
+        student2.addCourse(course);
+        course.addStudent(student2);
+
+        em.persist(student);
+        em.persist(course);
+        em.persist(student2);
     }
 }
